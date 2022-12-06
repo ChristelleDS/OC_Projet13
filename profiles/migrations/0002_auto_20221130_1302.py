@@ -26,7 +26,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('profiles', '0001_initial'),
-        #('oc_lettings_site','0001_initial'),
     ]
 
     operations = [
