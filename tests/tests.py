@@ -1,7 +1,6 @@
 import pytest
 from django.test import Client
 from http import HTTPStatus
-
 from django.urls import reverse
 
 

@@ -9,6 +9,7 @@ from .models import Letting
 def client():
     return Client()
 
+
 @pytest.mark.django_db
 class test_Lettings:
     def test_index(self, client):
