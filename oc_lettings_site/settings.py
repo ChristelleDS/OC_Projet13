@@ -19,14 +19,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'oc_lettings_site.apps.OCLettingsSiteConfig',
+    'oc_lettings_site.apps.OcLettingsSiteConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oc_lettings_site',
+    #'oc_lettings_site',
     'lettings',
     'profiles',
 ]
