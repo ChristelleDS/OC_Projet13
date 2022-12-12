@@ -42,26 +42,33 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: pytest
 
-  build:
+  containerization:
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Build Docker image
+          name: Build docker
           command: docker build -t chrisdsfr/docker-build-p13:latest .
-  publish:
-    docker:
-      - image: circleci/buildpack-deps:stretch
-    steps:
-      - setup_remote_docker
       - run:
           name: Connect to Docker Hub
           command: docker login -u "chrisdsfr" -p "Docker#0102"
       - run:
           name: Publish docker container to Docker Hub
           command: docker push chrisdsfr/docker-build-p13:latest
+
+  publish:
+    steps:
+      - checkout
+      - run:
+        name: Build and push Docker image to Heroku
+        command: |
+          set -x
+          sudo curl https://cli-assets.heroku.com/install.sh | sh
+          HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+          HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+          HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -70,5 +77,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - test
-      - build
+      - containerization
+        requires:
+          - test
       - publish
+        requires:
+          - containerization
