@@ -74,5 +74,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - test
-      - containerization
-      - publish
+      - containerization:
+          requires:
+            - test
+      - publish:
+          requires:
+            - containerization
