@@ -75,8 +75,4 @@ workflows:
     jobs:
       - test
       - containerization
-        requires:
-          - test
       - publish
-        requires:
-          - containerization
