@@ -21,7 +21,7 @@ class test_Profiles:
 
     def test_profile(self, client):
         endpoint = reverse('profiles:profile', kwargs={
-                'username': (Profile.objects.all()[0]).user.username})
+                'username': 'AirWow'})
         response = client.get(endpoint)
         assert response.status_code == HTTPStatus.OK
         assert "AirWow" in response.content.decode()
