@@ -2,7 +2,6 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 from http import HTTPStatus
-from .models import Profile
 
 
 @pytest.fixture
