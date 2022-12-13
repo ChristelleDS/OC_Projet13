@@ -2,13 +2,6 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-environment:
-  DOCKER_USER: chrisdsfr
-  DOCKER_PASSWORD: Docker#0102
-  DOCKER_NAME: docker-build-p13
-  HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
-
-
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
@@ -67,7 +60,10 @@ jobs:
           command: docker push chrisdsfr/docker-build-p13:$CIRCLE_SHA1
 
   heroku_deploy:
-    executor: heroku/default
+    machine: True
+    environment:
+      HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
+    # executor: heroku/default
     steps:
       - checkout
       - run:
