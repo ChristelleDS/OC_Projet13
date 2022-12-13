@@ -61,8 +61,8 @@ jobs:
 
   heroku_deploy:
     machine: True
-    environment:
-      HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
+    # environment:
+    #  HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
     # executor: heroku/default
     steps:
       - checkout
