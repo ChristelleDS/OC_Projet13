@@ -2,6 +2,13 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+environment:
+  DOCKER_USER: chrisdsfr
+  DOCKER_PASSWORD: Docker#0102
+  DOCKER_NAME: docker-build-p13
+  HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
+
+
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
@@ -10,6 +17,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
+  heroku: circleci/heroku@2.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -50,25 +58,26 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build docker
-          command: docker build -t chrisdsfr/docker-build-p13:$CIRCLE_SHA1 .
+          command: docker build -t $DOCKER_USER/$DOCKER_NAME:$CIRCLE_SHA1 .
       - run:
           name: Connect to Docker Hub
-          command: docker login -u "chrisdsfr" -p "Docker#0102"
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - run:
           name: Publish docker container to Docker Hub
-          command: docker push chrisdsfr/docker-build-p13:$CIRCLE_SHA1
+          command: docker push $DOCKER_USER/$DOCKER_NAME:$CIRCLE_SHA1
 
-  publish:
-    docker:
-      - image: cimg/python:3.10.2
+  heroku_deploy:
+    machine: true
     steps:
       - checkout
       - run:
           name: Build and push Docker image to Heroku
-          command: 'hello'
+            command: |
+              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a OC_Projet13:$CIRCLE_SHA1 web
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a OC_Projet13:$CIRCLE_SHA1 web
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build_and_deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
@@ -77,6 +86,6 @@ workflows:
       - containerization:
           requires:
             - test
-      - publish:
+      - heroku_deploy:
           requires:
             - containerization
