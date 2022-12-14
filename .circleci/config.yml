@@ -54,7 +54,7 @@ jobs:
           command: docker build -t $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1 .
       - run:
           name: Connect to Docker Hub
-          command: docker login -u $DOCKER_USERNAME -p Docker#0102
+          command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run:
           name: Publish docker container to Docker Hub
           command: docker push $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
@@ -64,10 +64,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install heroku
+          name: install heroku CLI and login
           command: |
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
+            heroku login
       - run:
           name: auth and push Docker image to Heroku
           command: |
