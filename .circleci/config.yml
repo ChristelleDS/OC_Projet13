@@ -10,7 +10,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
-  heroku: circleci/heroku@2.0
+  heroku: circleci/heroku@2.0.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -51,32 +51,29 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build docker
-          command: docker build -t chrisdsfr/docker-build-p13:$CIRCLE_SHA1 .
+          command: docker build -t $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1 .
       - run:
           name: Connect to Docker Hub
-          command: docker login -u chrisdsfr -p Docker#0102
+          command: docker login -u $DOCKER_USERNAME -p Docker#0102
       - run:
           name: Publish docker container to Docker Hub
-          command: docker push chrisdsfr/docker-build-p13:$CIRCLE_SHA1
+          command: docker push $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
 
   heroku_deploy:
     machine: True
-    # environment:
-    #  HEROKU_TOKEN: 60b94089-47f2-4984-9b77-07e624582694
-    # executor: heroku/default
     steps:
       - checkout
       - run:
           name: install heroku
           command: |
+            set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
       - run:
           name: auth and push Docker image to Heroku
           command: |
-            docker login --username=christelle.dasilva75@gmail.com --password=$(heroku auth:token) registry.heroku.com
-            HEROKU_API_KEY heroku container:login
-            HEROKU_API_KEY heroku container:push -a OC_Projet13:$CIRCLE_SHA1 web
-            HEROKU_API_KEY heroku container:release -a OC_Projet13:$CIRCLE_SHA1 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-1222 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-1222 web
 
 workflows:
   build_and_deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
