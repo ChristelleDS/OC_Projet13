@@ -82,6 +82,12 @@ workflows:
       - containerization:
           requires:
             - test
+          filters:
+            branches:
+              only: master
       - heroku_deploy:
           requires:
             - containerization
+          filters:
+            branches:
+              only: master
