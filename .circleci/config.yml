@@ -22,7 +22,7 @@ jobs:
     # The executor is the environment in which the steps below will be executed - below will use a python 3.10.2 container
     # Change the version below to your required version of python
     docker:
-      - image: cimg/python:3.10.2
+      - image: circleci/python:3.10.2
     # Checkout the code as the first step. This is a dedicated CircleCI step.
     # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
@@ -67,13 +67,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build and push Docker image to Heroku
+          name: install heroku
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a OC_Projet13:$CIRCLE_SHA1 web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a OC_Projet13:$CIRCLE_SHA1 web
+      - run:
+          name: auth and push Docker image to Heroku
+          command: |
+            docker login --username=christelle.dasilva75@gmail.com --password=$(heroku auth:token) registry.heroku.com
+            HEROKU_API_KEY heroku container:login
+            HEROKU_API_KEY heroku container:push -a OC_Projet13:$CIRCLE_SHA1 web
+            HEROKU_API_KEY heroku container:release -a OC_Projet13:$CIRCLE_SHA1 web
 
 workflows:
   build_and_deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
