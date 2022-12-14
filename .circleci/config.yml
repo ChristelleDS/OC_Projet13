@@ -66,9 +66,7 @@ jobs:
       - run:
           name: install heroku CLI and login
           command: |
-            set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-            heroku login
       - run:
           name: push on Heroku
           command: |
