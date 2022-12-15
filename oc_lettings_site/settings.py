@@ -120,7 +120,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 sentry_sdk.init(
-    dsn=os.environ['SENTRY_DSN'],
+    dsn="https://6f6dd5b2d306491c9d3818fd52dcf6f1@o4504333296205824.ingest.sentry.io/4504333307215872",
     integrations=[
         DjangoIntegration(),
     ],
