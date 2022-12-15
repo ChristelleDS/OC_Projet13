@@ -64,15 +64,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install heroku CLI and login
+          name: install heroku CLI and push on Heroku
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-      - run:
-          name: push on Heroku
-          command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-1222 web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-1222 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-1222 web            
 
 workflows:
   build_and_deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
