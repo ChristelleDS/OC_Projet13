@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn oc_lettings_site.settings.wsgi --preload --log-file -
+web: gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT
