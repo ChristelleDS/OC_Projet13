@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Copy .env file
           command: |
-            cp .env $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
+            cp .env $DOCKER_USERNAME/docker-build-p13
       - run:
           name: Publish docker container to Docker Hub
           command: docker push $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
