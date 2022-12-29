@@ -61,6 +61,7 @@ jobs:
       - run:
           name: Copy .env file
           command: |
+            mkdir -p $DOCKER_USERNAME/docker-build-p13
             cp .env $DOCKER_USERNAME/docker-build-p13
 
 
