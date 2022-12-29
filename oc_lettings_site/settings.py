@@ -26,6 +26,7 @@ ALLOWED_HOSTS = ['*', "oc-lettings-1222.herokuapp.com", "localhost"]
 
 INSTALLED_APPS = [
     'oc_lettings_site.apps.OcLettingsSiteConfig',
+    'environ',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lettings',
     'profiles',
-    'environ',
 ]
 
 MIDDLEWARE = [
