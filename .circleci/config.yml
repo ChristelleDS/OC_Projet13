@@ -46,7 +46,7 @@ jobs:
   containerization:
     docker:
       - image: circleci/buildpack-deps:stretch
-    steps:
+    steps:          
       - checkout
       - setup_remote_docker
       - run:
@@ -58,6 +58,10 @@ jobs:
       - run:
           name: Publish docker container to Docker Hub
           command: docker push $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
+      - run:
+        name: Copy .env file
+        command: |
+          cp .env $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
 
   heroku_deploy:
     machine: True
