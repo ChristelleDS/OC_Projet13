@@ -1,7 +1,7 @@
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from dotenv import load_dotenv, find_dotenv
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,12 +9,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# Add .env variables anywhere before SECRET_KEY
-load_dotenv(find_dotenv())
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY=env('SECRET_KEY')
+# SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,7 +121,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 sentry_sdk.init(
-    dsn="https://6f6dd5b2d306491c9d3818fd52dcf6f1@o4504333296205824.ingest.sentry.io/4504333307215872",
+    dsn=env('SENTRY_DSN'),
     integrations=[
         DjangoIntegration(),
     ],
