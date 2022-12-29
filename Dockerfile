@@ -4,7 +4,6 @@ FROM python:3.10.2-slim-buster
 ADD . /appDocker
 # changer le répertoire de travail
 WORKDIR /appDocker
-COPY .env /appDocker/.env
 
 # installer les requirements
 RUN pip install --upgrade pip
