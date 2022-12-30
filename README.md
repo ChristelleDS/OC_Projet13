@@ -75,3 +75,47 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Variables
+
+- Créer un fichier d'environnement .env à la racine du projet et y définir les variables d'environnement (sans espace ni guillements)
+- ajouter ce fichier .env dans le fichier .gitignore
+
+
+### Déploiement en intégration continue
+
+Le déploiement se fait via circleCI (config.yml) à chaque déploiement du projet sur la branche master de GITHUB. 
+1) L'exécution du linting et des tests
+2) La conteneurisation du site en une image Docker (si étape 1 OK)
+3) La mise en production sous Heroku ( si étape 2 OK)
+
+### Configuration de circleCI
+
+- créer un compte sur https://circleci.com/ et lier votre compte github: https://circleci.com/signup/
+- Aller dans les settings du projet concerné, puis créer vos variables d'environnement dans le menu du même nom:
+DOCKER_PASSWORD, DOCKER_USERNAME, HEROKU_API_KEY, SECRET_KEY et SENTRY_DSN
+
+
+### Containerisation avec Docker
+
+- https://hub.docker.com/
+- S'inscrire et s'identifier
+- Installer Docker desktop en local
+- alimenter les variables d'authentification DOCKER dans CircleCI
+
+Le fichier Dockerfile décrit les instructions à éxécuter pour construire l'image docker.
+
+### Hébergement Heroku
+
+- S'incrire sur Heroku: https://signup.heroku.com/ et se connecter
+- Au niveau du tableau de bord, cliquer sur "New" puis "Create new app"
+- Donner un nom à l'application (oc-lettings-1222 dans notre cas) puis cliquer sur "Create app"
+- Aller dans les settings de l'application crée, ajouter les variables d'environnement (Config vars/Reveal config vars):
+SECRET_KEY, SENTRY_DSN, HEROKU_API_KEY
+- alimenter la variable HEROKU_API_KEY dans circleCI
+
+### Monitoring Sentry
+
+- Lier votre compte github à Sentry à partir du lien: https://sentry.io/signup/
+- Créer un projet et récupérer son DSN dans les settings
+- alimenter la variable SENTRY_DSN dans heroku et circleCI
