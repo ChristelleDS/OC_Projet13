@@ -46,6 +46,9 @@ jobs:
   containerization:
     docker:
       - image: circleci/buildpack-deps:stretch
+    environment:
+      SECRET_KEY: $SECRET_KEY
+      SENTRY_DSN: $SENTRY_DSN
     steps:          
       - checkout
       - setup_remote_docker
