@@ -106,14 +106,14 @@ DOCKER_PASSWORD, DOCKER_USERNAME, HEROKU_API_KEY, SECRET_KEY et SENTRY_DSN
 
 Le fichier Dockerfile décrit les instructions à éxécuter pour construire l'image docker.
 Pour récupérer et éxécuter en local une image DockerHub depuis une commande: 
-`docker run --rm -p 8000:8000 username/appname python manage.py runserver 0.0.0.0:8000`
+`docker run --rm -p 8000:8000 username/reponame:tag python manage.py runserver 0.0.0.0:8000`
 Sinon vous pouvez récupérer une image du dépot distant depuis Docker Desktop (images/remote repositories => pull). 
 
 ### Hébergement Heroku
 
 - S'incrire sur Heroku: https://signup.heroku.com/ et se connecter
 - Au niveau du tableau de bord, cliquer sur "New" puis "Create new app"
-- Donner un nom à l'application (oc-lettings-1222 dans notre cas) puis cliquer sur "Create app"
+- Donner un nom à l'application (oc-lettings-X dans notre cas) puis cliquer sur "Create app"
 - Aller dans les settings de l'application crée, ajouter les variables d'environnement (Config vars/Reveal config vars):
 SECRET_KEY, SENTRY_DSN, HEROKU_API_KEY
 - alimenter la variable HEROKU_API_KEY dans circleCI
