@@ -51,7 +51,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build docker
-          command: docker build -t $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1 --build-arg SECRET_KEY=$SECRET_KEY .
+          command: docker build -t $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1 .
       - run:
           name: Connect to Docker Hub
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
