@@ -79,6 +79,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 ### Variables
 
 - Créer un fichier d'environnement .env à la racine du projet et y définir les variables d'environnement (sans espace ni guillements)
+    SECRET_KEY et SENTRY_DSN
 - ajouter ce fichier .env dans le fichier .gitignore
 
 
