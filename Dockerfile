@@ -10,6 +10,8 @@ WORKDIR /appDocker
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+ARG SECRET_KEY
+
 EXPOSE 8000
 VOLUME /appDocker/logs
 
