@@ -58,11 +58,6 @@ jobs:
       - run:
           name: Publish docker container to Docker Hub
           command: docker push $DOCKER_USERNAME/docker-build-p13:$CIRCLE_SHA1
-      - run:
-          name: Copy .env file
-          command: |
-            mkdir -p $DOCKER_USERNAME/docker-build-p13
-            cp .env $DOCKER_USERNAME/docker-build-p13
 
 
   heroku_deploy:

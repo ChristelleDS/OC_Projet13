@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 from http import HTTPStatus
-from .models import Letting
+from lettings.models import Letting
 
 
 @pytest.fixture
