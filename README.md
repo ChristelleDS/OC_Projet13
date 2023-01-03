@@ -105,7 +105,7 @@ DOCKER_PASSWORD, DOCKER_USERNAME, HEROKU_API_KEY, SECRET_KEY et SENTRY_DSN
 - alimenter les variables d'authentification DOCKER dans CircleCI
 
 Le fichier Dockerfile décrit les instructions à éxécuter pour construire l'image docker.
-Pour récupérer en local une image Docker du hub depuis une commande:  `docker pull username/repositoryname:tagname`
+Pour récupérer et éxécuter en local une image DockerHub depuis une commande:  `docker run --pull username/appname`
 Sinon vous pouvez récupérer une image du dépot distant depuis Docker Desktop (images/remote repositories => pull). 
 
 ### Hébergement Heroku
