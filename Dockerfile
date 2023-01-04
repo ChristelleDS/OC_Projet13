@@ -5,6 +5,8 @@ ADD . /appDocker
 # changer le répertoire de travail
 WORKDIR /appDocker
 
+ARG SECRET_KEY
+
 # installer les requirements
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
