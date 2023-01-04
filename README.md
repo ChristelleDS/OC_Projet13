@@ -106,7 +106,7 @@ DOCKER_PASSWORD, DOCKER_USERNAME, HEROKU_API_KEY, SECRET_KEY et SENTRY_DSN
 
 Le fichier Dockerfile décrit les instructions à éxécuter pour construire l'image docker.
 Pour récupérer et éxécuter en local une image DockerHub depuis une commande: 
-`docker run --rm -p 8000:8000 username/reponame:tag python manage.py runserver 0.0.0.0:8000`
+`docker run -e "SECRET_KEY=KEYVALUE" -e "SENTRY_DSN=DSNVALUE" --rm -p 8000:8000 USERNAME/PROJECTNAME:TAG python manage.py runserver 0.0.0.0:8000`
 Sinon vous pouvez récupérer une image du dépot distant depuis Docker Desktop (images/remote repositories => pull). 
 
 ### Hébergement Heroku
