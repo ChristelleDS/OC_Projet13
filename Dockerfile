@@ -9,6 +9,9 @@ WORKDIR /appDocker
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+ENV SECRET_KEY=$SECRET_KEY
+ENV SENTRY_DSN=$SENTRY_DSN
+
 EXPOSE 8000
 VOLUME /appDocker/logs
 

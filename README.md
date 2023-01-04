@@ -122,4 +122,4 @@ SECRET_KEY, SENTRY_DSN, HEROKU_API_KEY
 
 - Lier votre compte github à Sentry à partir du lien: https://sentry.io/signup/
 - Créer un projet et récupérer son DSN dans les settings
-- alimenter la variable SENTRY_DSN dans heroku et circleCI
+- alimenter la variable SENTRY_DSN dans heroku, circleCI, et dans le projet local .env.
