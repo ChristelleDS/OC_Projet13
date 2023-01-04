@@ -5,8 +5,7 @@ ADD . /appDocker
 # changer le répertoire de travail
 WORKDIR /appDocker
 
-ENV PORT=8000
-ARG SECRET_KEY
+ENV SECRET_KEY=$SECRET_KEY
 
 # installer les requirements
 RUN pip install --upgrade pip
