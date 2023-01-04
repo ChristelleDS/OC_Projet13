@@ -5,9 +5,6 @@ ADD . /appDocker
 # changer le répertoire de travail
 WORKDIR /appDocker
 
-ENV SECRET_KEY=$SECRET_KEY
-ENV SENTRY_DSN=$SENTRY_DSN
-
 # installer les requirements
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
