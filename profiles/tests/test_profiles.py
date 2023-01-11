@@ -1,3 +1,4 @@
+"""
 import pytest
 from django.test import Client
 from django.urls import reverse
@@ -8,7 +9,7 @@ from http import HTTPStatus
 def client():
     return Client()
 
-"""
+
 @pytest.mark.django_db
 def test_index(client):
     endpoint = reverse('profiles:index')
@@ -25,6 +26,7 @@ def test_profile(client):
     assert response.status_code == HTTPStatus.OK
     assert "AirWow" in response.content.decode()
 """
+
 
 def test_dummy():
     assert 1
